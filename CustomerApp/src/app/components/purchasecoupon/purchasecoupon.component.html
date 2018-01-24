@@ -1,0 +1,148 @@
+<br>
+<p style="text-align:center">
+  <input style="width:60vh " type="text" class="btn btn-default"  [(ngModel)]="term" id="quicksearch"
+   placeholder="Search by coupon title">
+  <span class="glyphicon glyphicon-search"></span> 
+  </p>
+
+
+<table border="1" id="table"  style="display: none" class="table table-hover table-dark">
+    <thead>
+      <tr style="background-color: black">
+        <th style="color: blue"  scope="col">ID</th>
+        <th style="color: blue"scope="col">Coupon Title</th>
+        <th style="color: blue" scope="col">Coupon Start Date</th>
+        <th style="color: blue"scope="col">Coupon End Date</th>
+        <th style="color: blue"scope="col">Coupon Amount</th>
+        <th style="color: blue"scope="col">Coupon Type</th>
+        <th style="color: blue"scope="col">Coupon Message </th>
+        <th style="color: blue"scope="col">Coupon Price</th>
+        <th style="color: blue"scope="col">Coupon Image</th>
+        <th style="color: blue"scope="col">Purchase Coupon</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let c of coupons |filter:term">
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.title}}</td>
+        <td>{{c.startdate}}</td>
+        <td>{{c.enddate}}</td>
+        <td>{{c.amount}}</td>
+        <td>{{c.type}}</td>
+        <td>{{c.message}}</td>
+        <td>{{c.price}}</td>
+        <td><img src="{{c.image}}" style="width: 150px"></td>
+        
+  
+        <td><button  (click)="setCouponToPurchase(c)"   type="button" class="btn btn-primary"
+           data-toggle="modal" data-target="#exampleModalpurchase">
+            Purchase
+          </button></td>
+        
+        
+      </tr>
+     
+    </tbody>
+  </table>
+  
+ 
+  
+  <!-- Modal purchase -->
+  
+  <div class="modal fade" id="exampleModalpurchase" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModal3Label">Purchase Coupon</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to purchase this Coupon?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button data-dismiss="modal" (click)="purchaseCoupon()"  type="button" class="btn btn-primary">Purchase Coupon
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+     <!-- Modal success  -->
+     <div  class="modal fade" id="exampleModalsucess" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+     aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModal3Label">Purchase  Coupon Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            The Coupon has been successfully purchased!!
+          </div>
+          <div class="modal-footer">
+            <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- Modal failure for purchase  -->
+    <div  class="modal fade" id="exampleModalfailurepurchase" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+    aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModal3Label">Purchase  Coupon  failed</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+          {{error}}
+         </div>
+         <div class="modal-footer">
+           <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+   <!-- Modal failure for getallcouponsToTable  -->
+   <div  class="modal fade" id="exampleModalfailureGetCoupons" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+   aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModal3Label">Get All Companies Coupons To The Table Failed</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{error}}
+        </div>
+        <div class="modal-footer">
+          <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+   
+   
+ 
+    
+    
+  

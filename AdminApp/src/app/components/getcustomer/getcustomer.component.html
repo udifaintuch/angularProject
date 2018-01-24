@@ -1,0 +1,228 @@
+<div class="container">
+    <h1>Get Customer by ID</h1>
+        <form #myform="ngForm" ngNativeValidate class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="name1" class="col-sm-2 control-label">Customer ID:</label>
+            <div class="col-sm-6">
+              <input required name="customer_id" [(ngModel)]="customerid" type="number" min="1" class="form-control inputstl"
+               placeholder="Enter Customer ID">
+            </div>
+          </div>
+
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-6">
+                  <button  type="submit" class="btn btn-lg btn-block btn-info" data-toggle="modal" data-target="#exampleModalcreate">
+                Get Customer</button>
+              </div>
+            </div>
+          </form>
+         </div>    
+
+         <div *ngIf="!myform.valid"class="col-sm-offset-3 col-sm-6"   style="color:red">
+            please enter positive customer id to  Get Customer </div>
+
+         <table border="1" id="table" style="display: none" class="table table-hover table-dark">
+            <thead>
+              <tr style="background-color: black">
+                <th style="color: blue"  scope="col">id</th>
+                <th   style="color: blue"scope="col">Customer Name</th>
+                <th  style="color: blue" scope="col">password</th>
+                <th  style="color: blue" scope="col">Update Customer</th>
+                <th  style="color: blue" scope="col">Delete Customer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="tr_customer" >
+                <th scope="row">{{customer.id}}</th>
+                <td>{{customer.custName}}</td>
+                <td>{{customer.password}}</td>
+                <td><button (click)="saveCurrentPassword()"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalupdate">
+                  edit
+                </button></td>
+              <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModaldelete">
+                  delete
+                </button></td>
+              </tr>
+              </tbody>
+              </table>
+
+              
+
+
+
+
+
+        <!-- Modal create -->
+<div *ngIf="myform.valid" class="modal fade" id="exampleModalcreate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModal3Label">Get Customer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to GET this Customer?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button  data-dismiss="modal" (click)="getCustomer()" type="button" class="btn btn-primary">Get Customer</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <!-- Modal Upadte -->
+  <div class="modal fade" id="exampleModalupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModal3Label">Update Customer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          update password:<input type="text" [(ngModel)]="customer.password">
+        </div>
+        <div class="modal-footer">
+          <button (click)="correctUpdateIfCancel()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button   data-dismiss="modal" (click)="updateCustomer()"type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Delete -->
+  
+  <div class="modal fade" id="exampleModaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModal3Label">Delete Customer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this customer?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button data-dismiss="modal" (click)="deleteCustomer()"type="button" class="btn btn-primary">
+              Delete Customer
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Modal success for delete  -->
+  <div  class="modal fade" id="exampleModalsucessdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+  aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModal3Label">Delete Customer  Success</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         The Customer has been successfully removed!!
+       </div>
+       <div class="modal-footer">
+         <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <!-- Modal success for update company  -->
+ <div  class="modal fade" id="exampleModalsucessupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+ aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Update  Customer Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The Customer details has been successfully updated!!
+      </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <!-- Modal failure for get customer -->
+ <div  class="modal fade" id="exampleModalfailureget" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+ aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Get Customer failed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{error}}
+      </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal failure for update customer -->
+<div  class="modal fade" id="exampleModalfailureupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Update Customer failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>
+
+<!-- Modal failure for delete customer -->
+<div  class="modal fade" id="exampleModalfailuredelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Delete Customer failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>

@@ -1,0 +1,108 @@
+
+<br>
+<p style="text-align:center">
+  <input style="width:60vh " type="text" class="btn btn-default"  [(ngModel)]="term" id="quicksearch"
+   placeholder="Search by coupon title">
+  <span class="glyphicon glyphicon-search"></span> 
+  </p>
+
+<div class="container">
+    <h1>Get  Coupons By Price</h1>
+        <form #myform="ngForm" ngNativeValidate  class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="name1" class="col-sm-2 control-label">Coupon Price:</label>
+                <div class="col-sm-6">
+                  <input required name="coupon_price" [(ngModel)]="price" type="number" min="0"
+                   class="form-control inputstl" placeholder="Enter Coupon Price">
+                </div>
+              </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+        <button  type="submit" class="btn btn-lg btn-block btn-info" data-toggle="modal" 
+        data-target="#exampleModalcreate">
+      Get Coupons By Price</button>
+    </div>
+  </div>
+  </form>
+  </div> 
+  
+  <div *ngIf="!myform.valid" class="col-sm-offset-3 col-sm-6"  style="color:red">
+    please enter  price to get your coupons by price </div>
+  
+  <table border="1" id="table" style="display: none"  class="table table-hover table-dark">
+    <thead>
+      <tr style="background-color: black">
+        <th style="color: blue"  scope="col">ID</th>
+        <th   style="color: blue"scope="col">Coupon Title</th>
+        <th  style="color: blue" scope="col">Coupon Start Date</th>
+        <th   style="color: blue"scope="col">Coupon End Date</th>
+        <th   style="color: blue"scope="col">Coupon Amount</th>
+        <th   style="color: blue"scope="col">Coupon Type</th>
+        <th   style="color: blue"scope="col">Coupon Message </th>
+        <th   style="color: blue"scope="col">Coupon Price</th>
+        <th   style="color: blue"scope="col">Coupon Image</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let c of coupons |filter:term">
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.title}}</td>
+        <td>{{c.startdate}}</td>
+        <td>{{c.enddate}}</td>
+        <td>{{c.amount}}</td>
+        <td>{{c.type}}</td>
+        <td>{{c.message}}</td>
+        <td>{{c.price}}</td>
+        <td><img src="{{c.image}}" style="width: 150px"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+ 
+  
+    
+      <!-- Modal create -->
+  <div *ngIf="myform.valid" class="modal fade" id="exampleModalcreate" tabindex="-1" role="dialog"
+   aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModal3Label">Get Coupons By Price </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to get your coupons under that price?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button (click)="getAllCouponsByPrice()"  data-dismiss="modal" type="button"
+           class="btn btn-primary"> Get Coupons By Price</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Modal failure for get coupons by price-->
+<div  class="modal fade" id="exampleModalfailureget" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Get Purchased Coupons By Price Failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>

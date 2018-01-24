@@ -1,0 +1,66 @@
+<div class="page-wrapper"> 
+  <div class="header">
+    <nav style="margin-bottom: 0" class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a routerLink="/home"  style="font-size: 200%" class="navbar-brand" href="#">Admin Facade-Home</a>
+      </div>
+      <ul  class="nav navbar-nav">
+        <li><div class="dropdown ">
+            <button    class="btn btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              Company Management &#9660; 
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <a routerLink="/getallcompanies"  class="dropdown-item" href="#!">Get All Companies</a><br><br>
+              <a routerLink="/createcompany" class="dropdown-item" href="#!">Create Company</a><br><br>
+              <a routerLink="/getcompany" class="dropdown-item" href="#!">Get One Company By ID</a><br><br>
+              
+            </div>
+          </div></li>
+        
+        <li><div  class="dropdown ">
+            <button  class="btn btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              Customer Management &#9660;
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <a routerLink="/getallcustomers" class="dropdown-item" href="#!">Get All Customers</a><br><br>
+              <a routerLink="/createcustomer" class="dropdown-item" href="#!">Create Customer</a><br><br>
+              <a routerLink="/getcustomer" class="dropdown-item" href="#!">Get One Customer By ID</a><br><br>
+              
+            </div>
+        </div>
+    </li>
+            </ul>
+
+            <div>
+            <form (ngSubmit)="logout()">           
+            <button id="submit" type="submit"   class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-log-out"></span> Log out
+              </button>
+            </form>            
+          </div>
+          
+    </div>
+  </nav>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    </div>
+
+
+
+  <nav  id="footer" class="navbar fixed-bottom navbar-dark bg-primary">
+    <span class="navbar-brand" style="text-align: left">&copy;Udi Faintuch</span>
+    <span  class="navbar-brand" style="margin-left: 30%"  > Hello Dear  Admin!!!!!</span>
+  </nav>
+  </div>
+
+
+

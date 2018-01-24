@@ -1,0 +1,77 @@
+<div class="page-wrapper"> 
+  <div class="header">
+   <nav style="margin-bottom: 0"   class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a routerLink="/home" style="font-size: 200%" class="navbar-brand" href="#">Customer Facade-Home</a>
+      </div>
+      <ul  class="nav navbar-nav">
+        <li><div class="dropdown show">
+            <button    class="btn btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              Customer Details &#9660;
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <a routerLink="/getthiscustomer"  class="dropdown-item" href="#!">Get Your Customer Details</a><br><br>
+              
+            </div>
+          </div></li>
+        
+        <li><div class="dropdown show">
+            <button  class="btn btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              Coupon Management &#9660;
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <a routerLink="/purchasecoupon" class="dropdown-item" href="#!">Purchase coupon</a><br><br>
+              <a routerLink="/getAllPurchasedCoupons" class="dropdown-item" href="#!">Get All Purchased Customer Coupons</a><br><br>
+              <a routerLink="/getcouponsbytype" class="dropdown-item" href="#!">Get Customer Coupons By Type</a><br><br>
+              <a routerLink="/getcouponsbyprice" class="dropdown-item" href="#!">Get Customer Coupons By Price</a><br><br>
+              
+  
+            </div>
+        </div>
+    </li>
+            </ul>
+
+
+            <form (ngSubmit)="logout()">           
+              <button id="submit"  type="submit"  class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-log-out"></span> Log out
+                </button>
+              </form>            
+  
+    
+    </div>
+  </nav>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    </div>
+
+  <nav  id="footer" class="navbar fixed-bottom navbar-dark bg-primary">
+    <span class="navbar-brand" style="text-align: left">&copy;Udi Faintuch</span>
+    <span style="margin-left: 30%" class="navbar-brand" > Hello to you {{customer.custName}}!!!!!</span>
+  </nav>
+  </div>
+
+
+
+
+ 
+
+
+  
+
+  
+
+
+
+
+
+

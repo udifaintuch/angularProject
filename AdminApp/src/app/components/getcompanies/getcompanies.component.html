@@ -1,0 +1,197 @@
+<br>
+<p style="text-align:center">
+  <input style="width:60vh " type="text" class="btn btn-default"  [(ngModel)]="term" id="quicksearch"
+   placeholder="Search by company name">
+  <span class="glyphicon glyphicon-search"></span> 
+  </p>
+  
+
+
+<table border="1" id="table" style="display:none" class="table table-hover table-dark">
+  <thead>
+    <tr style="background-color: black">
+      <th style="color: blue"  scope="col">ID</th>
+      <th   style="color: blue"scope="col">Company Name</th>
+      <th  style="color: blue" scope="col">Password</th>
+      <th   style="color: blue"scope="col">Email</th>
+      <th  style="color: blue" scope="col">Update Comapny</th>
+      <th  style="color: blue" scope="col">Delete Company</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let c of companies |filtercompany:term ; let i=index">
+      <th scope="row">{{c.id}}</th>
+      <td>{{c.companyName}}</td>
+      <td>{{c.password}}</td>
+      <td>{{c.email}}</td>
+      <td><button (click)="setCompanyupdate(c)" (click)="saveCurrentPasswordAndEmail()" type="button"
+         class="btn btn-primary" data-toggle="modal" data-target="#exampleModalupdate">
+          edit
+        </button></td>
+      <td><button  (click)="setCompanydelete(c)" (click)="setDeleteIndexFromTable(i)" type="button" class="btn btn-primary"
+         data-toggle="modal" data-target="#exampleModaldelete">
+          delete
+        </button></td>
+      
+    </tr>
+   
+  </tbody>
+</table>
+
+<!-- Modal Upadte -->
+<div class="modal fade" id="exampleModalupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Update Company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        update password:<input  type="text" [(ngModel)]="updatecompany.password">
+        <br><br>
+        update email:<input  style="margin-left:3.8vh" type="text" [(ngModel)]="updatecompany.email">
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)=" correctUpdateIfCancel()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button (click)="updateCompany()"type="button" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete -->
+
+<div class="modal fade" id="exampleModaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModal3Label">Delete Company</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this company?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button data-dismiss="modal" (click)="deleteCompany()" type="button" class="btn btn-primary">
+            Delete Company
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ <!-- Modal success for delete  -->
+ <div  class="modal fade" id="exampleModalsucessdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+ aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Delete Company Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The Company has been successfully removed!!
+      </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal success for update company  -->
+<div  class="modal fade" id="exampleModalsucessupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Update  Company Success</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       The Company details has been successfully updated!!
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
+<!-- Modal failure for get companies-->
+<div  class="modal fade" id="exampleModalfailureget" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Get Companies failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+      {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
+<!-- Modal failure for update companies-->
+<div  class="modal fade" id="exampleModalfailureupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Update  Company failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+      {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>
+
+<!-- Modal failure for delete companies-->
+<div  class="modal fade" id="exampleModalfailuredelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">Delete Company failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+      {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>

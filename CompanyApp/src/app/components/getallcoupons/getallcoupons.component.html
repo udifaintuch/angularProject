@@ -1,0 +1,210 @@
+<br>
+<p style="text-align:center">
+  <input style="width:60vh " type="text" class="btn btn-default"  [(ngModel)]="term" id="quicksearch"
+   placeholder="Search by coupon title">
+  <span class="glyphicon glyphicon-search"></span> 
+  </p>
+  
+  <table border="1" id="table" style="display:none" class="table table-hover table-dark">
+    <thead>
+      <tr style="background-color: black">
+        <th style="color: blue"  scope="col">ID</th>
+        <th   style="color: blue"scope="col">Coupon Title</th>
+        <th  style="color: blue" scope="col">Coupon Start Date</th>
+        <th   style="color: blue"scope="col">Coupon End Date</th>
+        <th   style="color: blue"scope="col">Coupon Amount</th>
+        <th   style="color: blue"scope="col">Coupon Type</th>
+        <th   style="color: blue"scope="col">Coupon Message </th>
+        <th   style="color: blue"scope="col">Coupon Price</th>
+        <th   style="color: blue"scope="col">Coupon Image</th>
+        <th  style="color: blue" scope="col">Update Coupon</th>
+        <th  style="color: blue" scope="col">Delete Coupon</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let c of coupons |filter:term ;let i=index">
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.title}}</td>
+        <td>{{c.startdate}}</td>
+        <td>{{c.enddate}}</td>
+        <td>{{c.amount}}</td>
+        <td>{{c.type}}</td>
+        <td>{{c.message}}</td>
+        <td>{{c.price}}</td>
+        <td><img src="{{c.image}}" style="width: 150px"></td>
+        
+  
+        <td><button (click)="setCouponUpdate(c)" (click)="savePriceAndEndDate()"  type="button" class="btn btn-primary"
+           data-toggle="modal" data-target="#exampleModalupdate">
+            edit
+          </button></td>
+        <td><button  (click)="setCouponDelete(c)" (click)="setDeleteIndexFromTable(i)" type="button"
+           class="btn btn-primary" data-toggle="modal" data-target="#exampleModaldelete">
+            delete
+          </button></td>
+        
+      </tr>
+     
+    </tbody>
+  </table>
+  
+  <!-- Modal Upadte -->
+  <div class="modal fade" id="exampleModalupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+   aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModal3Label">Update Coupon</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          Update End Date: <input  type="date" [(ngModel)]="updatecoupon.enddate">
+          <span class="glyphicon glyphicon-calendar"></span>
+        
+          <br><br>
+          update Price:<input style="margin-left: 3.8vh" type="number" min="0" [(ngModel)]="updatecoupon.price">
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="correctPriceAndEndDateInTable()"  class="btn btn-secondary"
+           data-dismiss="modal">Cancel</button>
+          <button  (click)="updateCoupon()"type="button" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Delete -->
+  
+  <div class="modal fade" id="exampleModaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModal3Label">Delete Coupon</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this Coupon?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button data-dismiss="modal" (click)="deleteCoupon()"
+             type="button" class="btn btn-primary">Delete Coupon
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <!-- Modal success for delete  -->
+  <div  class="modal fade" id="exampleModalsucessdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+  aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModal3Label">Delete Coupon Success</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         The Coupon has been successfully removed!!
+       </div>
+       <div class="modal-footer">
+         <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+       </div>
+     </div>
+   </div>
+  </div>
+  
+  <!-- Modal success for update company  -->
+  <div  class="modal fade" id="exampleModalsucessupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Update  Coupon Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The Coupon details has been successfully updated!!
+      </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  
+  <!-- Modal failure for get coupons-->
+  <div  class="modal fade" id="exampleModalfailureget" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Get Coupons failed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{error}}   
+         </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Modal failure for update  coupons-->
+  <div  class="modal fade" id="exampleModalfailureupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Update Coupons failed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{error}}   
+         </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Modal failure for delete coupons-->
+  <div  class="modal fade" id="exampleModalfailuredelete" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal3Label">Delete Coupons failed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{error}}   
+         </div>
+      <div class="modal-footer">
+        <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  

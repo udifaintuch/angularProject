@@ -1,0 +1,68 @@
+<div class="page-wrapper"> 
+ <div class="header">
+   <nav nav style="margin-bottom: 0" class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a routerLink="/home" style="font-size: 200%" class="navbar-brand" href="#">Company Facade-Home</a>
+      </div>
+      <ul  class="nav navbar-nav">
+        <li><div class="dropdown show">
+            <button    class="btn btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              Company Details &#9660;
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <a routerLink="/getthiscompany"  class="dropdown-item" href="#!">Get Your Company Details</a><br><br>
+              
+            </div>
+          </div></li>
+        
+        <li><div class="dropdown show">
+            <button  class="btn btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              Coupon Management &#9660;
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <a routerLink="/createcoupon" class="dropdown-item" href="#!">Create coupon</a><br><br>
+              <a routerLink="/getAllCoupons" class="dropdown-item" href="#!">Get All Company Coupons</a><br><br>
+              <a routerLink="/getcouponsbytype" class="dropdown-item" href="#!">Get Company Coupons By Type</a><br><br>
+              <a routerLink="/getcouponsbydate" class="dropdown-item" href="#!">Get Company Coupons By Date</a><br><br>
+              <a routerLink="/getcouponsbyprice" class="dropdown-item" href="#!">Get Company Coupons By Price</a><br><br>
+              <a routerLink="/getcouponbyid" class="dropdown-item" href="#!">Get Company Coupon By Id</a><br><br>
+              
+  
+            </div>
+        </div>
+    </li>
+            </ul>
+  
+            <form  (ngSubmit)=" logout()">           
+              <button id="submit"  type="submit"  class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-log-out"></span> Log out
+                </button>
+              </form>            
+  
+    
+  
+    </div>
+  </nav>
+</div>
+
+  <div class="content-wrapper">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    </div>
+
+
+  <nav  id="footer"  class="navbar fixed-bottom navbar-dark bg-primary">
+    <span class="navbar-brand" style="text-align: left">&copy;Udi Faintuch</span>
+    <span style="margin-left: 30%" class="navbar-brand" > Hello to you  {{company.companyName}}!!!!!</span>
+  </nav>
+
+</div>
+
+ 
+  

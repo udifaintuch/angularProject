@@ -1,0 +1,58 @@
+<br>
+<p style="text-align:center">
+  <input style="width:60vh " type="text" class="btn btn-default"  [(ngModel)]="term" id="quicksearch"
+   placeholder="Search by coupon title">
+  <span class="glyphicon glyphicon-search"></span> 
+  </p>
+
+
+<table border="1" id="table" style="display: none"  class="table table-hover table-dark">
+    <thead>
+      <tr style="background-color: black">
+        <th style="color: blue"  scope="col">ID</th>
+        <th   style="color: blue"scope="col">Coupon Title</th>
+        <th  style="color: blue" scope="col">Coupon Start Date</th>
+        <th   style="color: blue"scope="col">Coupon End Date</th>
+        <th   style="color: blue"scope="col">Coupon Amount</th>
+        <th   style="color: blue"scope="col">Coupon Type</th>
+        <th   style="color: blue"scope="col">Coupon Message </th>
+        <th   style="color: blue"scope="col">Coupon Price</th>
+        <th   style="color: blue"scope="col">Coupon Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let c of coupons |filter:term">
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.title}}</td>
+        <td>{{c.startdate}}</td>
+        <td>{{c.enddate}}</td>
+        <td>{{c.amount}}</td>
+        <td>{{c.type}}</td>
+        <td>{{c.message}}</td>
+        <td>{{c.price}}</td>
+        <td><img src="{{c.image}}" style="width: 150px"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- Modal failure for get coupons-->
+<div  class="modal fade" id="exampleModalfailureget" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModal3Label">get purchased Coupons failed</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+      
+      {{error}}
+     </div>
+     <div class="modal-footer">
+       <button id="closemodal"  data-dismiss="modal" type="button" class="btn btn-primary">Close </button>
+     </div>
+   </div>
+ </div>
+</div>
